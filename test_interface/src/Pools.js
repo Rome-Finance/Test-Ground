@@ -1,8 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import web3 from "./web3";
-import Invest from "./components/Invest";
-import Liquidate from "./components/Liquidate";
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'

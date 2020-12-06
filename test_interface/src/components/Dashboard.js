@@ -5,8 +5,6 @@ import Mushroom from "../Mushroom";
 import Rome from "../Rome";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Invest from "./Invest";
-import Liquidate from "./Liquidate";
 import Container from "react-bootstrap/Container";
 //import Card from 'react-bootstrap/Card'
 //import Box from '@material-ui/core/Box';

@@ -1,7 +1,7 @@
 
 import './App.css';
 import web3 from "./web3";
-import Invest from "./components/Invest";
+import StakingPool from "./components/StakingPool";
 import Liquidate from "./components/Liquidate";
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
@@ -133,7 +133,12 @@ class Landing extends Component{
                 <Container>
                     <Row>
                         <Col sm>
-                            <Invest Update={this.Update} waitingOnContract={this.state.waitingOnContract} UpdateWaitingOnContract={this.UpdateWaitingOnContract} /> {/* render invest child component from invest.js */}
+                            <StakingPool Update={this.Update}
+                                               waitingOnContract={this.state.waitingOnContract}
+                                               UpdateWaitingOnContract={this.UpdateWaitingOnContract}
+                                               TokenContract={Rome}
+                                               PoolContract={Mushroom}
+                            />
                         </Col>
                         <Col sm>
                             <Liquidate Update={this.Update} waitingOnContract={this.state.waitingOnContract} UpdateWaitingOnContract={this.UpdateWaitingOnContract}/> {/* render liquidate child component from liquidate.js */}

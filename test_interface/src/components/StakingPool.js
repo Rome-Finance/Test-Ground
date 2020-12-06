@@ -12,7 +12,27 @@ function callBack(err, result) {
     console.warn(result);
 }
 
-class Invest extends Component{
+class StakingPool extends Component{
+
+    /*
+    Making this class general instead of specific contracts thoughts
+
+    Approve token, and staking pool are the two contracts we use in this invest function
+    Liquidate only uses the staking pool, so it should be easy to just put both stake and unstake javascript functions into the same component file
+
+    To pass contracts in props, we need staking token contract (#1) and staking pool itself contract (#2)
+    Two contracts need to be passed in props to render this component
+
+    Component needs easier button layout so stake and unstake are near to each other, and look nice with text box and $ display of expected value or something
+
+    Maybes
+        -make component open modal to do trades.
+            Pros
+            -saves space on page
+            Cons
+            -Makes user navigate another menu
+
+     */
 
 
 
@@ -63,9 +83,11 @@ class Invest extends Component{
             batch.add(Rome.methods.approve(Mushroom.options.address, weiValue).send.request({from: accounts[0]}, callBack));
             batch.add(Mushroom.methods.stake(weiValue).send.request({from: accounts[0]}, callBack));
             */
+            let StakingTokenContract = this.props.TokenContract;
+            let StakingPoolContract = this.props.PoolContract;
 
-            await Rome.methods.approve(Mushroom.options.address, weiValue).send({from: accounts[0]});
-            await Mushroom.methods.stake(weiValue).send({from: accounts[0]});
+            await StakingTokenContract.methods.approve(Mushroom.options.address, weiValue).send({from: accounts[0]});
+            await StakingPoolContract.methods.stake(weiValue).send({from: accounts[0]});
 
 
 
@@ -159,4 +181,4 @@ class Invest extends Component{
         )
     }
 };
-export default Invest;
+export default StakingPool;
