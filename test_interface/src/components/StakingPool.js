@@ -55,79 +55,62 @@ class StakingPool extends Component{
 
 
 
-    invest = async event =>{
-        console.log("EYYYYYY");
-
+    stake = async event =>{
         event.preventDefault();
         try {
             var accounts;
-
             this.props.UpdateWaitingOnContract(true);
-
             await web3.eth.getAccounts().then(function(acc){ accounts = acc })
-
-            console.log(accounts[0]);
-
-            //const batch = new web3.eth.BatchRequest();
-
+            //console.log(accounts[0]);
             const weiValue = web3.utils.toWei(this.state.amount, 'ether');
-
-            /*
-            ------------------------------------------------------------------------------------------
-            theres a lot of commented out code in this section, but im leaving it because
-            it is a working example of how to use web3 batches correctly, and I might need that later
-            ------------------------------------------------------------------------------------------
-             */
-
-            /*
-            batch.add(Rome.methods.approve(Mushroom.options.address, weiValue).send.request({from: accounts[0]}, callBack));
-            batch.add(Mushroom.methods.stake(weiValue).send.request({from: accounts[0]}, callBack));
-            */
             let StakingTokenContract = this.props.TokenContract;
             let StakingPoolContract = this.props.PoolContract;
-
             await StakingTokenContract.methods.approve(Mushroom.options.address, weiValue).send({from: accounts[0]});
             await StakingPoolContract.methods.stake(weiValue).send({from: accounts[0]});
-
-
-
-            /*
-            .call(from:accounts[0]))
-            batch.add(Mushroom.methods
-                .mint(this.state.amount) // contains the user account name
-                .send({
-                    from: accounts[0]
-                }));
-
-             */
-            // batches let you put more than one transaction together to be processed at one
-            // need them for approve transfer, then transferfrom when using erc tokens
-            //await batch.execute();
-
             this.props.UpdateWaitingOnContract(false);
-
             this.props.Update();
-
         } catch (err) {
             console.log("ERROR IN SENDING TO CHAIN " + err);
             this.props.UpdateWaitingOnContract(false);
         }
-
-
     }
 
-    /*
-    Dynamically render the button to have different text on it when the contract is waiting for transactions to come back
 
-    this function returns a div, which allows it to be passed as a component, and for me to type in words without a string
-    could maybe do the same thing without div and passing a literal string, then dealing with string in render,
-    but this way seems to look a feel cleaner
-     */
-    ButtonText() {
+    unstake = async event => {
+        event.preventDefault();
+        try {
+            this.props.UpdateWaitingOnContract(true);
+            var accounts;
+            await web3.eth.getAccounts().then(function (acc) {
+                accounts = acc
+            })
+            //console.log(accounts[0]);
+            const weiValue = web3.utils.toWei(this.state.amount, 'ether');
+            let StakingPoolContract = this.props.PoolContract;
+            await StakingPoolContract.methods.unstake(weiValue).send({from: accounts[0]});
+            // batches let you put more than one transaction together to be processed at one
+            // need them for approve transfer, then transferfrom when using erc tokens
+            this.props.UpdateWaitingOnContract(false);
+            this.props.Update();
+        } catch (err) {
+            console.log("ERROR IN SENDING TO CHAIN " + err);
+            this.props.UpdateWaitingOnContract(false);
+        }
+    }
+
+
+        /*
+        Dynamically render the button to have different text on it when the contract is waiting for transactions to come back
+
+        this function returns a div, which allows it to be passed as a component, and for me to type in words without a string
+        could maybe do the same thing without div and passing a literal string, then dealing with string in render,
+        but this way seems to look a feel cleaner
+         */
+    ButtonText(text) {
         if (this.props.waitingOnContract) {
             return <div>Waiting on Transactions.............</div>;
         }
-        return <div>Invest Tokens</div>;
+        return text;
     }
 
 
@@ -143,7 +126,7 @@ class StakingPool extends Component{
                 }}>
 
 
-                    <h4 style={{ color: 'Black', fluid: false }}>Invest USDC</h4 >
+                    <h4 style={{ color: 'Black', fluid: false }}>USDC</h4 >
                     {/*
                      Form that updates a value in order for the chain call function to know how much
                      to put into the invest function of the contract when its called later on the button press
@@ -166,14 +149,14 @@ class StakingPool extends Component{
                             }
                         />
                     </Form.Field>
-                    <br/>
-                    <h4 style={{ color: 'Black', margin: 0, }} align="center">   Tokens will be used for investments and you will get MUSH tokens based on your share of the investment pool. (Approve Both Transactions)</h4>
-                    <br/>
                     {/*
-                     Button that calls function to send invest transactions to chain
+                     Buttons that calls functions to send stake or unstake transactions to chain
                     */}
-                    <button id={'setLocation'} className={'btn btn-md btn-success'} disabled={this.props.waitingOnContract} style={{color:'black'}} onClick={this.invest}>
-                        <span>{this.ButtonText()}</span>
+                    <button id={'stake'} className={'btn btn-md btn-success'} disabled={this.props.waitingOnContract} style={{color:'black'}} onClick={this.stake}>
+                        <span>{this.ButtonText(<div>Stake</div>)}</span>
+                    </button>
+                    <button id={'unstake'} className={'btn btn-md btn-success'} disabled={this.props.waitingOnContract} style={{color:'black'}} onClick={this.unstake}>
+                        <span>{this.ButtonText(<div>Unstake</div>)}</span>
                     </button>
 
                 </Card>
