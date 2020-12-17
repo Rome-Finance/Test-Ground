@@ -17,7 +17,7 @@ contract Pool is ERC20 {
     IStrategy oldStrategy;
     IERC20 stakingToken;
 
-
+    //modifer that requires caller to be region owner. Each region will have its own poolmanager. Change name of pool manager to region?
     modifier onlyRegionOwner {
         require(
             msg.sender == poolMAN.getRegionOwner(),
@@ -75,7 +75,7 @@ contract Pool is ERC20 {
         bal1 = stakingToken.balanceOf(address(this));
         currentStrategy.deposit(amount);
         bal2 = stakingToken.balanceOf(address(this));
-        staking_token_in_old_strategy += bal2 - bal1;
+        staking_token_in_current_strategy += bal2 - bal1;
     }
 
 
@@ -106,9 +106,27 @@ contract Pool is ERC20 {
 
         require(msg.sender == address(poolMAN));
 
-        //@to done make this scale to the users share of the pool, then mint tokens equal to user share of pool
 
-        //_mint(user, tokens_to_mint_user);
+
+        //@todo make this scale to the users share of the pool, then mint tokens equal to user share of pool
+
+        uint256 fundsToOldStrat = (amount * staking_token_in_old_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
+        uint256 fundsToCurrentStrat = (amount * staking_token_in_current_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
+
+
+        stakingToken.transferFrom(user, address(oldStrategy), fundsToOldStrat);
+        oldStrategy.deposit(fundsToOldStrat);
+
+
+        uint256 balBefore = currentStrategy.totalBalance();
+        stakingToken.transferFrom(user, address(currentStrategy), fundsToCurrentStrat);
+        currentStrategy.deposit(fundsToCurrentStrat);
+        uint256 balAfter = currentStrategy.totalBalance();
+
+        uint256 tokensToMint = ( (balAfter - balBefore) * totalSupply() ) / balAfter ;
+
+
+        _mint(user, tokensToMint);
     }
 
     function withdraw(address user, uint256 amount) public{//amount here is in pool token. DIFFERENT BETWEEN WITHDRAW AND STAKE
@@ -134,7 +152,13 @@ contract Pool is ERC20 {
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
 
+        uint256 oldToWithdraw = oldStrategy.totalBalance() * ( amount / balanceOf(user) ) * (balanceOf(user) / totalSupply());
+        uint256 newToWithdraw = currentStrategy.totalBalance() * ( amount / balanceOf(user) ) * (balanceOf(user) / totalSupply());
 
+        oldStrategy.withdraw(oldToWithdraw);
+        currentStrategy.withdraw(newToWithdraw);
+
+        _burn(user, amount);
 
         //_burn(user, something songsafdas); // make sure the burn the users pool tokens
 
