@@ -152,15 +152,13 @@ contract Pool is ERC20 {
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
 
-        uint256 oldToWithdraw = oldStrategy.totalBalance() * ( amount / balanceOf(user) ) * (balanceOf(user) / totalSupply());
-        uint256 newToWithdraw = currentStrategy.totalBalance() * ( amount / balanceOf(user) ) * (balanceOf(user) / totalSupply());
+        uint256 oldToWithdraw = (oldStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
+        uint256 newToWithdraw = (currentStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
 
         oldStrategy.withdraw(oldToWithdraw);
         currentStrategy.withdraw(newToWithdraw);
 
         _burn(user, amount);
-
-        //_burn(user, something songsafdas); // make sure the burn the users pool tokens
 
 
     }
