@@ -1,8 +1,8 @@
 pragma solidity =0.7.5;
 
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/token/ERC20/ERC20.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/access/Ownable.sol";
+import "./openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import "./openzeppelin-contracts/contracts/access/Ownable.sol";
 import "./Pool.sol";
 
 contract PoolManager is Ownable{

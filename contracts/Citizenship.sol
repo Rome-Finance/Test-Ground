@@ -1,9 +1,9 @@
 pragma solidity =0.7.5;
 
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/token/ERC721/ERC721.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/access/Ownable.sol";
-import "Rome.sol";
+import "./openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
+import "./openzeppelin-contracts/contracts/access/Ownable.sol";
+import "./Rome.sol";
 
 contract Citizenship is ERC721, Ownable {
     using SafeMath for uint256;
