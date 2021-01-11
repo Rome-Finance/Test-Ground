@@ -7,6 +7,7 @@ const web3 = new Web3(provider);
 
 
 const PoolManager = artifacts.require('PoolManager')
+const Pool = artifacts.require('Pool')
 
 require('chai') //chai is an assertion library
     .use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
@@ -30,8 +31,20 @@ contract('PoolManager', (accounts) => {
 
         it('does accounts[0] deploy contract', async () => {
             let theEmpire = await PoolManager.new(accounts[0], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
-            let owner = await theEmpire.owner()
+            let owner = await theEmpire.owner();
             assert.equal(accounts[0], owner)
+        })
+
+        it('renounce ownership works', async () => {
+            let theEmpire = await PoolManager.new(accounts[0], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
+            await theEmpire.renounceOwnership({
+                from: accounts[0],
+                gas: "1000000"
+            });
+            let owner = await theEmpire.owner();
+            assert.equal(owner, "0x0000000000000000000000000000000000000000")
+            console.log(accounts[0])
+            console.log(owner)
         })
     })
 })
