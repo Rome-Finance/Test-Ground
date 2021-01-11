@@ -10,15 +10,22 @@ const Rome = artifacts.require('Rome')
 
 require('chai') //chai is an assertion library
     .use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
-    .should()
+    .should() // tells chai how to behave or something
 
 contract('Rome', (accounts) => {
 
-    describe('Mock Rome deployment', async () => {
-        it('has a name', async () => {
+    describe('Rome deployment', async () => {
+
+        it('has correct name', async () => {
             let roma = await Rome.new() //creates a new instance of a contract
             let name = await roma.name() //apparently you can just use the . and method name for contract method
-            assert.equal(name, 'Rome')
+            assert.equal(name, 'Rome') //any time assert is used to calls the chai assert library. Can also do stuff like should
+        })
+
+        it('has correct symbol', async () => {
+            let roma = await Rome.new() //creates a new instance of a contract
+            let symbol = await roma.symbol() //apparently you can just use the . and method name for contract method
+            assert.equal(symbol, 'ROME') //any time assert is used to calls the chai assert library. Can also do stuff like should
         })
     })
 })
