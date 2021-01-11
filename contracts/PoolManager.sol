@@ -33,9 +33,9 @@ contract PoolManager is Ownable{
     /*
     @todo think about how this works, with modular yield/vault deployment for regions
     */
-    function deployPool() external{
-        //make this take paramaters and stuff to deploy a custom pool, then add it to approved pools
-    }
+    //function deployPool() external{
+    //    //make this take paramaters and stuff to deploy a custom pool, then add it to approved pools
+    //}
 
     function depositToPool(address p, uint256 amount ) external{ //p stands for pool
         Pool pool = Pool(p); //cast address to pool
