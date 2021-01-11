@@ -33,18 +33,20 @@ contract('PoolManager', (accounts) => {
             let theEmpire = await PoolManager.new(accounts[0], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
             let owner = await theEmpire.owner();
             assert.equal(accounts[0], owner)
+            //console.log(owner)
         })
 
         it('renounce ownership works', async () => {
             let theEmpire = await PoolManager.new(accounts[0], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
+            //below is syntax to set account and gas. add json arg after regular args of function
             await theEmpire.renounceOwnership({
                 from: accounts[0],
                 gas: "1000000"
             });
             let owner = await theEmpire.owner();
             assert.equal(owner, "0x0000000000000000000000000000000000000000")
-            console.log(accounts[0])
-            console.log(owner)
+            //console.log(accounts[0])
+            //console.log(owner)
         })
     })
 })
