@@ -13,6 +13,8 @@ require('chai') //chai is an assertion library
     .use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
     .should() // tells chai how to behave or something
 
+const ERROR_MSG = 'VM Exception while processing transaction: revert';
+
 contract('PoolManager', (accounts) => {
 
     describe('PoolManager deployment', async () => {
@@ -45,6 +47,31 @@ contract('PoolManager', (accounts) => {
             });
             let owner = await theEmpire.owner();
             assert.equal(owner, "0x0000000000000000000000000000000000000000")
+            //console.log(accounts[0])
+            //console.log(owner)
+        })
+
+        it('transfer region owner legit', async () => {
+            let theEmpire = await PoolManager.new(accounts[1], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
+            //below is syntax to set account and gas. add json arg after regular args of function
+            await theEmpire.transferRegionOwner( accounts[2], {
+                from: accounts[1],
+                gas: "1000000"
+            });
+            let reg_owner = await theEmpire.getRegionOwner();
+            assert.equal(reg_owner, accounts[2])
+            //console.log(accounts[0])
+            //console.log(owner)
+        })
+        it('transfer region owner malicious 1', async () => {
+            let theEmpire = await PoolManager.new(accounts[1], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
+            //below is syntax to set account and gas. add json arg after regular args of function
+            await theEmpire.transferRegionOwner( accounts[2], {
+                from: accounts[2],
+                gas: "1000000"
+            }).should.be.rejectedWith(ERROR_MSG);
+            let reg_owner = await theEmpire.getRegionOwner();
+            //assert.equal(reg_owner, accounts[2])
             //console.log(accounts[0])
             //console.log(owner)
         })
