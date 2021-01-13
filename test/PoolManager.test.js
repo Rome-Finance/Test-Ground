@@ -8,6 +8,8 @@ const web3 = new Web3(provider);
 
 const PoolManager = artifacts.require('PoolManager')
 const Pool = artifacts.require('Pool')
+const Rome = artifacts.require('Rome')
+const StrategyController = artifacts.require('StrategyControler')
 
 require('chai') //chai is an assertion library
     .use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
@@ -74,6 +76,26 @@ contract('PoolManager', (accounts) => {
             //assert.equal(reg_owner, accounts[2])
             //console.log(accounts[0])
             //console.log(owner)
+        })
+
+
+    })
+
+    describe('Pool Interaction', async () => {
+        it('can approve a pool', async () => {
+            let theEmpire = await PoolManager.new(accounts[0], "the empire", {
+                from: accounts[0],
+                gas: "1000000"
+            }) //im not sure which account is consider the deployer for owner purposes when .new() is called
+            let romeTok = await Rome.new()
+            let stratControl = await StrategyController.new(0)
+            let testPool = await Pool.new("test pool", "TPOL", romeTok.address, stratControl.address, theEmpire.address)
+            await theEmpire.approvePool(testPool.address, {
+                from: accounts[0],
+                gas: "1000000"
+            })
+            let wasApproved = await theEmpire.isPoolApproved(testPool.address)
+            assert.equal(true, wasApproved)
         })
     })
 })

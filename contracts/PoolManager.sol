@@ -64,6 +64,10 @@ contract PoolManager is Ownable{
         return regionName;
     }
 
+    function isPoolApproved(address p) external view returns(bool){
+        return approvedPools[Pool(p)];
+    }
+
     //region owner can transfer ownership to new owner
     //this effectively means pool manager contract is defacto thing that represents a region. Could change that later and have region contract
     //if so change this
@@ -71,6 +75,7 @@ contract PoolManager is Ownable{
         require(msg.sender == regionOwner);
         regionOwner = newOwner;
     }
+
 
 
 
