@@ -34,7 +34,6 @@ contract StrategyControler is Ownable{
         Pool sPool = Pool(poolToChange); //cast
         require(nextStrategyUnlockTimes[sPool] < block.timestamp, "timelock has not expired"); // require that 24 hours have passed since calling start time lock
         sPool.setStrategy(nextStrategies[sPool]); // call the setStrategy method of the pool, replaces strategy pool uses. Causes unstake and stake of pool to do different stuff
-
     }
 
 

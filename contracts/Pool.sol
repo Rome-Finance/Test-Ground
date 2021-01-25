@@ -73,7 +73,8 @@ contract Pool is ERC20 {
         staking_token_in_old_strategy -= bal1 - bal2;
 
         bal1 = stakingToken.balanceOf(address(this));
-        currentStrategy.deposit(amount);
+        stakingToken.transfer(address(currentStrategy), amount); //transfer happens outside deposit to make writing the strategy contracts easier
+        currentStrategy.deposit(amount); //deposit actually moves the money into whereever the strategy wants it to go
         bal2 = stakingToken.balanceOf(address(this));
         staking_token_in_current_strategy += bal2 - bal1;
     }
@@ -105,7 +106,6 @@ contract Pool is ERC20 {
         //@todo make this function actually transfer the tokens to this contract
 
         require(msg.sender == address(poolMAN));
-
 
 
         //@todo make this scale to the users share of the pool, then mint tokens equal to user share of pool
@@ -178,6 +178,13 @@ contract Pool is ERC20 {
         return poolMAN;
     }
 
+    function getCurrentStrategy() public view returns (IStrategy){
+        return currentStrategy;
+    }
+
+    function getLastStrategy() public view returns (IStrategy){
+        return oldStrategy;
+    }
 
 
 

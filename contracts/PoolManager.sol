@@ -24,8 +24,11 @@ contract PoolManager is Ownable{
     /*
     should be safe for people because nobody has to invest into new pool we launch without looking at it
     does not give us ability to modify or fuck with existing pools in any way, just add new ones
+
+    only region owner can add pools
     */
-    function approvePool(address newPool) external onlyOwner{
+    function approvePool(address newPool) external{
+        require(msg.sender == regionOwner);
         Pool np = Pool(newPool);
         approvedPools[np] = true;
     }
