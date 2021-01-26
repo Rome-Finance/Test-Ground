@@ -6,6 +6,7 @@ import "./openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import "./PoolManager.sol";
 import "./IStrategy.sol";
 
+
 contract Pool is ERC20 {
     using SafeMath for uint256;
 
@@ -21,7 +22,15 @@ contract Pool is ERC20 {
     modifier onlyRegionOwner {
         require(
             msg.sender == poolMAN.getRegionOwner(),
-            "Only owner can call this function."
+            "Only region owner can call this function."
+        );
+        _;
+    }
+
+    modifier onlyStrategyController {
+        require(
+            msg.sender == StrategyControler,
+            "Only strategy controller can call this function."
         );
         _;
     }
@@ -54,7 +63,7 @@ contract Pool is ERC20 {
     }
 
 
-    function setStrategy(IStrategy newStrategy) external onlyRegionOwner{
+    function setStrategy(IStrategy newStrategy) external onlyStrategyController{
         require(msg.sender == StrategyControler, "Only the StrategyControler contract can change the strategy");
         require(staking_token_in_old_strategy == 0); //make sure strategy 2 before this new one that is about to go into effect is empty of money because it will be forgotten
         require(address(newStrategy) != address(currentStrategy)); //dont let the user set the same strategy that is already in effect
@@ -64,7 +73,7 @@ contract Pool is ERC20 {
         staking_token_in_current_strategy = 0;
     }
 
-    function moveToNewPool(uint256 amount) external onlyRegionOwner{
+    function moveToNewStrategy(uint256 amount) external onlyRegionOwner{
         //@todo check this logic I wrote at 2 am sometime to make sure its right
         //should move money from old strategy to new, and update the money in each with the balanceOf this contract from stakingToken
         uint256 bal1 = stakingToken.balanceOf(address(this));

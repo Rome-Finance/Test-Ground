@@ -11,6 +11,9 @@ const Pool = artifacts.require('Pool')
 const Rome = artifacts.require('Rome')
 const justStoreItStrategy = artifacts.require('justStoreItStrategy')
 const StrategyController = artifacts.require('StrategyControler')
+const IStrategy = artifacts.require('IStrategy')
+
+const timeMachine = require('ganache-time-traveler');
 
 require('chai') //chai is an assertion library
     .use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
@@ -133,39 +136,46 @@ contract('PoolManager', (accounts) => {
                 from: accounts[0],
                 gas: "1000000"
             })
-            console.log("here1")
+            //console.log("here1")
             let wasApproved = await theEmpire.isPoolApproved(testPool.address)
-            console.log(wasApproved)
+            //console.log(wasApproved)
             assert.equal(true, wasApproved)
             let j_store_it_strat = await justStoreItStrategy.new(romeTok.address, testPool.address)
-            console.log("here2")
+            //console.log("here2")
             let owner = await stratControl.owner();
-            console.log(owner)
-            console.log(accounts[0])
+            //console.log(owner)
+            //console.log(accounts[0])
+
             await stratControl.startTimelock(testPool.address, j_store_it_strat.address, {
                 from: accounts[0],
                 gas: "1000000"
             })
-            await web3.currentProvider.send({
-                jsonrpc: "2.0",
-                method: "evm_increaseTime",
-                params: [600],
-                id: 123
-            }, callback)
-            await web3.currentProvider.send({
-                jsonrpc: "2.0",
-                method: "evm_mine",
-                id: 123
-            }, callback)
-            console.log("here3")
+
+            await timeMachine.advanceTimeAndBlock(1000)
+
+            //console.log("here3")
+            owner = await stratControl.owner()
+            //console.log(owner)
+            //console.log(accounts[0])
+
             await stratControl.deployAfterTimelock(testPool.address, {
                 from: accounts[0],
                 gas: "2000000"
             })
-            console.log("here4")
-            let cur_strat = testPool.getCurrentStrategy()
-            console.log("here5")
-            assert.equal(cur_strat, j_store_it_strat)
+
+            owner = await stratControl.owner()
+            //console.log(owner)
+            //console.log(accounts[0])
+
+            //console.log("here4")
+            let cur_strat = await testPool.getCurrentStrategy()
+            let cur_strat_interface = await IStrategy.at(cur_strat)
+            //console.log("here5")
+            //console.log(cur_strat_interface.address)
+            //console.log(j_store_it_strat.address)
+            assert.equal(cur_strat, j_store_it_strat.address)
+
+
         })
     })
 })

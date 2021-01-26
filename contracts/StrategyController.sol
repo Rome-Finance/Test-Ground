@@ -36,6 +36,12 @@ contract StrategyControler is Ownable{
         sPool.setStrategy(nextStrategies[sPool]); // call the setStrategy method of the pool, replaces strategy pool uses. Causes unstake and stake of pool to do different stuff
     }
 
+    function getBlockTime() public view returns (uint){
+        return block.timestamp;
+    }
+
+
+
 
 
 
