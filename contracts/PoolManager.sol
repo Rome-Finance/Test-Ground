@@ -11,7 +11,7 @@ contract PoolManager is Ownable{
     mapping(Pool => bool) approvedPools;
     address regionOwner;
     string regionName;
-    event Test(bytes32 message);
+    event PoolApproved(address pool);
 
 
 
@@ -29,10 +29,10 @@ contract PoolManager is Ownable{
     only region owner can add pools
     */
     function approvePool(address newPool) external{
-        emit Test(".5");
         require(msg.sender == regionOwner);
         Pool np = Pool(newPool);
         approvedPools[np] = true;
+        emit PoolApproved(newPool);
     }
 
     /*
