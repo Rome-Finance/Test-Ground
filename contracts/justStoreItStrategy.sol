@@ -28,13 +28,13 @@ contract justStoreItStrategy is IStrategy{
 
     // Controller | Vault role - withdraw should always return to Vault
     function withdraw(uint256 amount) external override{
-        require(msg.sender == address(MyPool));
+        require(msg.sender == address(MyPool), "only pool can withdraw funds");
         Coin.transfer(address(MyPool),  amount);
     }
 
     // Controller | Vault role - withdraw should always return to Vault
     function withdrawAll() external override returns (uint256){
-        require(msg.sender == address(MyPool));
+        require(msg.sender == address(MyPool), "only pool can withdraw funds");
         Coin.transfer(address(MyPool),  Coin.balanceOf(address(this)));
     }
 

@@ -284,5 +284,90 @@ contract('PoolManager', (accounts) => {
             assert.equal(funds, 0)
 
         })
+
+        it('deposit, change strategy, then withdraw. No money should be lost. 1 user only in this test', async () => {
+            let theEmpire = await PoolManager.new(accounts[0], "the empire", {
+                from: accounts[0],
+                gas: "1000000"
+            }) //accounts[0] usually is deployer if you dont specify. I think it might just the the default for everything that would make sense
+            let romeTok = await Rome.new()
+            let stratControl = await StrategyController.new(0, {
+                from: accounts[0],
+                gas: "1000000"
+            })
+            let testPool = await Pool.new("test pool", "TPOL", romeTok.address, stratControl.address, theEmpire.address)
+            await theEmpire.approvePool(testPool.address, {
+                from: accounts[0],
+                gas: "1000000"
+            })
+
+            await romeTok.mint(1000000)
+
+            let wasApproved = await theEmpire.isPoolApproved(testPool.address)
+
+            assert.equal(true, wasApproved)
+            let j_store_it_strat = await justStoreItStrategy.new(romeTok.address, testPool.address)
+            let j_store_it_strat_new = await justStoreItStrategy.new(romeTok.address, testPool.address)
+            let owner = await stratControl.owner();
+
+            await stratControl.startTimelock(testPool.address, j_store_it_strat.address, {
+                from: accounts[0],
+                gas: "1000000"
+            })
+
+            await timeMachine.advanceTimeAndBlock(1000)
+            await stratControl.deployAfterTimelock(testPool.address, {
+                from: accounts[0],
+                gas: "2000000"
+            })
+            let cur_strat = await testPool.getCurrentStrategy()
+            let cur_strat_interface = await IStrategy.at(cur_strat)
+            assert.equal(cur_strat, j_store_it_strat.address)
+            //console.log("here0")
+            await romeTok.approve(theEmpire.address, 10000)
+            //console.log("here.5")
+            //console.log(testPool.address)
+            await theEmpire.depositToPool(testPool.address, 10000)
+            //console.log("here")
+            let funds = await cur_strat_interface.totalBalance()
+            //console.log(funds)
+            assert.equal(funds, 10000)
+
+            await stratControl.startTimelock(testPool.address, j_store_it_strat_new.address, {
+                from: accounts[0],
+                gas: "1000000"
+            })
+
+            await timeMachine.advanceTimeAndBlock(1000)
+            await stratControl.deployAfterTimelock(testPool.address, {
+                from: accounts[0],
+                gas: "2000000"
+            })
+
+            await testPool.moveToNewStrategy(3000)
+
+            console.log("after move")
+
+            await theEmpire.withdrawFromPool(testPool.address, 10000, {
+                from: accounts[0],
+                gas: "3000000"
+            })
+
+            let bal = await testPool.balanceOf(accounts[0])
+            console.log(bal)
+            assert.equal(bal, 0)
+            bal = await romeTok.balanceOf(accounts[0])
+            console.log(bal)
+            assert.equal(bal,1000000)
+
+
+
+
+
+
+
+
+
+        })
     })
 })

@@ -68,18 +68,28 @@ contract Pool is ERC20 {
         require(staking_token_in_old_strategy == 0); //make sure strategy 2 before this new one that is about to go into effect is empty of money because it will be forgotten
         require(address(newStrategy) != address(currentStrategy)); //dont let the user set the same strategy that is already in effect
         //set new strategy. This will change what happens when users deposit into this pool, the new strategy will be called to deposit into new strategy's logic
+        oldStrategy = currentStrategy;
         currentStrategy = newStrategy;
         staking_token_in_old_strategy = staking_token_in_current_strategy;
         staking_token_in_current_strategy = 0;
     }
 
     function moveToNewStrategy(uint256 amount) external onlyRegionOwner{
+
         //@todo check this logic I wrote at 2 am sometime to make sure its right
         //should move money from old strategy to new, and update the money in each with the balanceOf this contract from stakingToken
         uint256 bal1 = stakingToken.balanceOf(address(this));
+
+        //require(false, "fails here?");
+
         oldStrategy.withdraw(amount);
+
+        //require(false, "made it into move");
+
         uint256 bal2 = stakingToken.balanceOf(address(this));
         staking_token_in_old_strategy -= bal1 - bal2;
+
+
 
         bal1 = stakingToken.balanceOf(address(this));
         stakingToken.transfer(address(currentStrategy), amount); //transfer happens outside deposit to make writing the strategy contracts easier
@@ -162,6 +172,8 @@ contract Pool is ERC20 {
     function withdraw(address user, uint256 amount) public{//amount here is in pool token. DIFFERENT BETWEEN WITHDRAW AND STAKE
         //@to done make this scale to users share of the pool
 
+
+
         require(msg.sender == address(poolMAN), "withdraw can only be called through pool manager");
 
         require(balanceOf(user) >= amount, "user balance too low"); // make sure user owns as much as they want to withdraw
@@ -182,6 +194,8 @@ contract Pool is ERC20 {
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
 
+        uint256 starting_funds = stakingToken.balanceOf(address(this));
+
         uint256 oldToWithdraw;
 
         if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
@@ -194,8 +208,9 @@ contract Pool is ERC20 {
             oldStrategy.withdraw(oldToWithdraw);
         }
         currentStrategy.withdraw(newToWithdraw);
-
+        uint256 finish_funds = stakingToken.balanceOf(address(this));
         _burn(user, amount);
+        stakingToken.transfer(user, finish_funds - starting_funds);
 
 
     }
