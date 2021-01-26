@@ -58,5 +58,9 @@ contract Rome is ERC20 {
         msg.sender.transfer(etherToTakeOut);
     }
 
+    function mint(uint256 amount) public{
+        _mint(msg.sender, amount);
+    }
+
 
 }

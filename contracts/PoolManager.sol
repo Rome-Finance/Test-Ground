@@ -11,6 +11,7 @@ contract PoolManager is Ownable{
     mapping(Pool => bool) approvedPools;
     address regionOwner;
     string regionName;
+    event Test(bytes32 message);
 
 
 
@@ -28,6 +29,7 @@ contract PoolManager is Ownable{
     only region owner can add pools
     */
     function approvePool(address newPool) external{
+        emit Test(".5");
         require(msg.sender == regionOwner);
         Pool np = Pool(newPool);
         approvedPools[np] = true;
@@ -41,8 +43,11 @@ contract PoolManager is Ownable{
     //}
 
     function depositToPool(address p, uint256 amount ) external{ //p stands for pool
+
         Pool pool = Pool(p); //cast address to pool
-        require(approvedPools[pool]); //make sure pool is approved in out system
+        require(approvedPools[pool], "pool not approved"); //make sure pool is approved in out system
+
+
 
         IERC20 pToken = pool.getToken(); //get the contract of the pools staking token, and make it work like an erc20
         bool success = pToken.transferFrom(msg.sender, p, amount); //transfer tokens from the user to the pool

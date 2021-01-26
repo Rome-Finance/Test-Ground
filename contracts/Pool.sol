@@ -114,21 +114,35 @@ contract Pool is ERC20 {
     function deposit(address user, uint256 amount) public{ //amount here is in staking token. DIFFERENT BETWEEN WITHDRAW AND STAKE
         //@todo make this function actually transfer the tokens to this contract
 
-        require(msg.sender == address(poolMAN));
 
+        require(msg.sender == address(poolMAN), "pool manager must deposit funds");
+        require(address(currentStrategy) != 0x0000000000000000000000000000000000000000, "current address must not be zero address");
 
         //@todo make this scale to the users share of the pool, then mint tokens equal to user share of pool
 
-        uint256 fundsToOldStrat = (amount * staking_token_in_old_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
-        uint256 fundsToCurrentStrat = (amount * staking_token_in_current_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
+        uint256 fundsToOldStrat;
+        uint256 fundsToCurrentStrat;
 
+        //make sure the first deposit happens without a divide by zero
+        if((staking_token_in_old_strategy + staking_token_in_current_strategy) == 0){
+            fundsToCurrentStrat = amount;
+            fundsToOldStrat = 0;
+        }
+        else{
+            uint256 fundsToOldStrat = (amount * staking_token_in_old_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
+            uint256 fundsToCurrentStrat = (amount * staking_token_in_current_strategy) / (staking_token_in_old_strategy + staking_token_in_current_strategy);
+        }
+        //require(false, "got to here boiiii");
 
-        stakingToken.transferFrom(user, address(oldStrategy), fundsToOldStrat);
-        oldStrategy.deposit(fundsToOldStrat);
+        //dont try to put stuff into old strategy if there is no old strategy
+        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
+            stakingToken.transferFrom(user, address(oldStrategy), fundsToOldStrat);
+            oldStrategy.deposit(fundsToOldStrat);
+        }
 
 
         uint256 balBefore = currentStrategy.totalBalance();
-        stakingToken.transferFrom(user, address(currentStrategy), fundsToCurrentStrat);
+        stakingToken.transfer(address(currentStrategy), fundsToCurrentStrat);
         currentStrategy.deposit(fundsToCurrentStrat);
         uint256 balAfter = currentStrategy.totalBalance();
 
