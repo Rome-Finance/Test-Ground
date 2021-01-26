@@ -146,7 +146,14 @@ contract Pool is ERC20 {
         currentStrategy.deposit(fundsToCurrentStrat);
         uint256 balAfter = currentStrategy.totalBalance();
 
-        uint256 tokensToMint = ( (balAfter - balBefore) * totalSupply() ) / balAfter ;
+        uint256 tokensToMint;
+        //make sure that tokens still get minted if totalSupply is 0
+        if(totalSupply() != 0){
+            tokensToMint = ( (balAfter - balBefore) * totalSupply() ) / balAfter;
+        }
+        else{
+            tokensToMint=(balAfter - balBefore);
+        }
 
 
         _mint(user, tokensToMint);
@@ -155,9 +162,9 @@ contract Pool is ERC20 {
     function withdraw(address user, uint256 amount) public{//amount here is in pool token. DIFFERENT BETWEEN WITHDRAW AND STAKE
         //@to done make this scale to users share of the pool
 
-        require(msg.sender == address(poolMAN));
+        require(msg.sender == address(poolMAN), "withdraw can only be called through pool manager");
 
-        require(balanceOf(user) > amount); // make sure user owns as much as they want to withdraw
+        require(balanceOf(user) >= amount, "user balance too low"); // make sure user owns as much as they want to withdraw
 
         /*
         make this withdraw some funds from old strategy and some from new strategy depending on migration state of
@@ -175,10 +182,17 @@ contract Pool is ERC20 {
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
 
-        uint256 oldToWithdraw = (oldStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
+        uint256 oldToWithdraw;
+
+        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
+            oldToWithdraw = (oldStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
+        }
         uint256 newToWithdraw = (currentStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
 
-        oldStrategy.withdraw(oldToWithdraw);
+
+        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
+            oldStrategy.withdraw(oldToWithdraw);
+        }
         currentStrategy.withdraw(newToWithdraw);
 
         _burn(user, amount);
