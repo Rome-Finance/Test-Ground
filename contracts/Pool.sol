@@ -87,15 +87,16 @@ contract Pool is ERC20 {
         //require(false, "made it into move");
 
         uint256 bal2 = stakingToken.balanceOf(address(this));
-        staking_token_in_old_strategy -= bal1 - bal2;
+        staking_token_in_old_strategy -= bal2 - bal1;
+        uint256 tokensToTransfer = bal2 - bal1;
 
 
 
         bal1 = stakingToken.balanceOf(address(this));
-        stakingToken.transfer(address(currentStrategy), amount); //transfer happens outside deposit to make writing the strategy contracts easier
-        currentStrategy.deposit(amount); //deposit actually moves the money into whereever the strategy wants it to go
+        stakingToken.transfer(address(currentStrategy), tokensToTransfer); //transfer happens outside deposit to make writing the strategy contracts easier
+        currentStrategy.deposit(tokensToTransfer); //deposit actually moves the money into whereever the strategy wants it to go
         bal2 = stakingToken.balanceOf(address(this));
-        staking_token_in_current_strategy += bal2 - bal1;
+        staking_token_in_current_strategy += bal1 - bal2;
     }
 
 
@@ -159,7 +160,7 @@ contract Pool is ERC20 {
         uint256 tokensToMint;
         //make sure that tokens still get minted if totalSupply is 0
         if(totalSupply() != 0){
-            tokensToMint = ( (balAfter - balBefore) * totalSupply() ) / balAfter;
+            tokensToMint = ((balAfter - balBefore) * totalSupply() ) / balBefore;
         }
         else{
             tokensToMint=(balAfter - balBefore);
@@ -199,10 +200,11 @@ contract Pool is ERC20 {
         uint256 oldToWithdraw;
 
         if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
-            oldToWithdraw = (oldStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
+            oldToWithdraw = (oldStrategy.totalBalance() *  amount) / (totalSupply());
+            // (amount / totalSupply) * oldStrategyBalance
         }
-        uint256 newToWithdraw = (currentStrategy.totalBalance() *  amount * balanceOf(user)) / (totalSupply() * balanceOf(user));
-
+        uint256 newToWithdraw = (currentStrategy.totalBalance() *  amount) / (totalSupply());
+        // (amount / totalSupply) * currentStrategyBalance
 
         if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){
             oldStrategy.withdraw(oldToWithdraw);
