@@ -34,23 +34,23 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "259:232:37:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "259:232:37:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;409:80;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;296:109;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;409:80;461:4;480;473:11;;409:80;:::o;296:109::-;336:7;358:42;351:49;;296:109;:::o",
+  "sourceMap": "259:232:38:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "259:232:38:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;409:80;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;296:109;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;409:80;461:4;480;473:11;;409:80;:::o;296:109::-;336:7;358:42;351:49;;296:109;:::o",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\n\n/**\n * @dev Implementation contract with an admin() function made to clash with\n * @dev TransparentUpgradeableProxy's to test correct functioning of the\n * @dev Transparent Proxy feature.\n */\ncontract ClashingImplementation {\n\n  function admin() external pure returns (address) {\n    return 0x0000000000000000000000000000000011111142;\n  }\n\n  function delegatedFunction() external pure returns (bool) {\n    return true;\n  }\n}\n",
   "sourcePath": "/home/darkdark/block_projs/rome_stuff/Test-Ground.io/contracts/openzeppelin-contracts/contracts/mocks/ClashingImplementation.sol",
   "ast": {
     "absolutePath": "/home/darkdark/block_projs/rome_stuff/Test-Ground.io/contracts/openzeppelin-contracts/contracts/mocks/ClashingImplementation.sol",
     "exportedSymbols": {
       "ClashingImplementation": [
-        5416
+        5536
       ]
     },
-    "id": 5417,
+    "id": 5537,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 5398,
+        "id": 5518,
         "literals": [
           "solidity",
           ">=",
@@ -61,7 +61,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:31:37"
+        "src": "33:31:38"
       },
       {
         "abstract": false,
@@ -69,74 +69,74 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 5399,
+          "id": 5519,
           "nodeType": "StructuredDocumentation",
-          "src": "67:191:37",
+          "src": "67:191:38",
           "text": " @dev Implementation contract with an admin() function made to clash with\n @dev TransparentUpgradeableProxy's to test correct functioning of the\n @dev Transparent Proxy feature."
         },
         "fullyImplemented": true,
-        "id": 5416,
+        "id": 5536,
         "linearizedBaseContracts": [
-          5416
+          5536
         ],
         "name": "ClashingImplementation",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 5406,
+              "id": 5526,
               "nodeType": "Block",
-              "src": "345:60:37",
+              "src": "345:60:38",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "307830303030303030303030303030303030303030303030303030303030303030303131313131313432",
-                    "id": 5404,
+                    "id": 5524,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "number",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "358:42:37",
+                    "src": "358:42:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address_payable",
                       "typeString": "address payable"
                     },
                     "value": "0x0000000000000000000000000000000011111142"
                   },
-                  "functionReturnParameters": 5403,
-                  "id": 5405,
+                  "functionReturnParameters": 5523,
+                  "id": 5525,
                   "nodeType": "Return",
-                  "src": "351:49:37"
+                  "src": "351:49:38"
                 }
               ]
             },
             "functionSelector": "f851a440",
-            "id": 5407,
+            "id": 5527,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "admin",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5400,
+              "id": 5520,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "310:2:37"
+              "src": "310:2:38"
             },
             "returnParameters": {
-              "id": 5403,
+              "id": 5523,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5402,
+                  "id": 5522,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5407,
-                  "src": "336:7:37",
+                  "scope": 5527,
+                  "src": "336:7:38",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -144,10 +144,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 5401,
+                    "id": 5521,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "336:7:37",
+                    "src": "336:7:38",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -157,69 +157,69 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "335:9:37"
+              "src": "335:9:38"
             },
-            "scope": 5416,
-            "src": "296:109:37",
+            "scope": 5536,
+            "src": "296:109:38",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 5414,
+              "id": 5534,
               "nodeType": "Block",
-              "src": "467:22:37",
+              "src": "467:22:38",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "74727565",
-                    "id": 5412,
+                    "id": 5532,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "480:4:37",
+                    "src": "480:4:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
                     "value": "true"
                   },
-                  "functionReturnParameters": 5411,
-                  "id": 5413,
+                  "functionReturnParameters": 5531,
+                  "id": 5533,
                   "nodeType": "Return",
-                  "src": "473:11:37"
+                  "src": "473:11:38"
                 }
               ]
             },
             "functionSelector": "abf8e0e7",
-            "id": 5415,
+            "id": 5535,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "delegatedFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5408,
+              "id": 5528,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "435:2:37"
+              "src": "435:2:38"
             },
             "returnParameters": {
-              "id": 5411,
+              "id": 5531,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5410,
+                  "id": 5530,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5415,
-                  "src": "461:4:37",
+                  "scope": 5535,
+                  "src": "461:4:38",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -227,10 +227,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 5409,
+                    "id": 5529,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "461:4:37",
+                    "src": "461:4:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -239,34 +239,34 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "460:6:37"
+              "src": "460:6:38"
             },
-            "scope": 5416,
-            "src": "409:80:37",
+            "scope": 5536,
+            "src": "409:80:38",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 5417,
-        "src": "259:232:37"
+        "scope": 5537,
+        "src": "259:232:38"
       }
     ],
-    "src": "33:459:37"
+    "src": "33:459:38"
   },
   "legacyAST": {
     "absolutePath": "/home/darkdark/block_projs/rome_stuff/Test-Ground.io/contracts/openzeppelin-contracts/contracts/mocks/ClashingImplementation.sol",
     "exportedSymbols": {
       "ClashingImplementation": [
-        5416
+        5536
       ]
     },
-    "id": 5417,
+    "id": 5537,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 5398,
+        "id": 5518,
         "literals": [
           "solidity",
           ">=",
@@ -277,7 +277,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:31:37"
+        "src": "33:31:38"
       },
       {
         "abstract": false,
@@ -285,74 +285,74 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 5399,
+          "id": 5519,
           "nodeType": "StructuredDocumentation",
-          "src": "67:191:37",
+          "src": "67:191:38",
           "text": " @dev Implementation contract with an admin() function made to clash with\n @dev TransparentUpgradeableProxy's to test correct functioning of the\n @dev Transparent Proxy feature."
         },
         "fullyImplemented": true,
-        "id": 5416,
+        "id": 5536,
         "linearizedBaseContracts": [
-          5416
+          5536
         ],
         "name": "ClashingImplementation",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 5406,
+              "id": 5526,
               "nodeType": "Block",
-              "src": "345:60:37",
+              "src": "345:60:38",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "307830303030303030303030303030303030303030303030303030303030303030303131313131313432",
-                    "id": 5404,
+                    "id": 5524,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "number",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "358:42:37",
+                    "src": "358:42:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address_payable",
                       "typeString": "address payable"
                     },
                     "value": "0x0000000000000000000000000000000011111142"
                   },
-                  "functionReturnParameters": 5403,
-                  "id": 5405,
+                  "functionReturnParameters": 5523,
+                  "id": 5525,
                   "nodeType": "Return",
-                  "src": "351:49:37"
+                  "src": "351:49:38"
                 }
               ]
             },
             "functionSelector": "f851a440",
-            "id": 5407,
+            "id": 5527,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "admin",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5400,
+              "id": 5520,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "310:2:37"
+              "src": "310:2:38"
             },
             "returnParameters": {
-              "id": 5403,
+              "id": 5523,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5402,
+                  "id": 5522,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5407,
-                  "src": "336:7:37",
+                  "scope": 5527,
+                  "src": "336:7:38",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -360,10 +360,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 5401,
+                    "id": 5521,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "336:7:37",
+                    "src": "336:7:38",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -373,69 +373,69 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "335:9:37"
+              "src": "335:9:38"
             },
-            "scope": 5416,
-            "src": "296:109:37",
+            "scope": 5536,
+            "src": "296:109:38",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 5414,
+              "id": 5534,
               "nodeType": "Block",
-              "src": "467:22:37",
+              "src": "467:22:38",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "74727565",
-                    "id": 5412,
+                    "id": 5532,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "480:4:37",
+                    "src": "480:4:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
                     "value": "true"
                   },
-                  "functionReturnParameters": 5411,
-                  "id": 5413,
+                  "functionReturnParameters": 5531,
+                  "id": 5533,
                   "nodeType": "Return",
-                  "src": "473:11:37"
+                  "src": "473:11:38"
                 }
               ]
             },
             "functionSelector": "abf8e0e7",
-            "id": 5415,
+            "id": 5535,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "delegatedFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5408,
+              "id": 5528,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "435:2:37"
+              "src": "435:2:38"
             },
             "returnParameters": {
-              "id": 5411,
+              "id": 5531,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5410,
+                  "id": 5530,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5415,
-                  "src": "461:4:37",
+                  "scope": 5535,
+                  "src": "461:4:38",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -443,10 +443,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 5409,
+                    "id": 5529,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "461:4:37",
+                    "src": "461:4:38",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -455,20 +455,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "460:6:37"
+              "src": "460:6:38"
             },
-            "scope": 5416,
-            "src": "409:80:37",
+            "scope": 5536,
+            "src": "409:80:38",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 5417,
-        "src": "259:232:37"
+        "scope": 5537,
+        "src": "259:232:38"
       }
     ],
-    "src": "33:459:37"
+    "src": "33:459:38"
   },
   "compiler": {
     "name": "solc",
@@ -476,7 +476,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-01-29T02:13:47.477Z",
+  "updatedAt": "2021-01-29T02:41:09.655Z",
   "devdoc": {
     "details": "Implementation contract with an admin() function made to clash withTransparentUpgradeableProxy's to test correct functioning of theTransparent Proxy feature.",
     "kind": "dev",
