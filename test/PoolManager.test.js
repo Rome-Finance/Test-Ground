@@ -1111,6 +1111,115 @@ contract('PoolManager', (accounts) => {
             bal.should.be.a.bignumber.that.closeTo(new BN(1000000), '10')
         })
 
+        it('make sure deposit is properly reject while pool is locked to move funds, and withdraw works normally and all funds can still be emptied, region manager cannot lock peoples funds forever with move', async () => {
+            let theEmpire = await PoolManager.new(accounts[0], "the empire", {
+                from: accounts[0],
+                gas: "1000000"
+            }) //accounts[0] usually is deployer if you dont specify. I think it might just the the default for everything that would make sense
+            let romeTok = await Rome.new()
+            let stratControl = await StrategyController.new(0, {from: accounts[0], gas: "1000000"})
+            let testPool = await Pool.new("test pool", "TPOL", romeTok.address, stratControl.address, theEmpire.address)
+            await theEmpire.approvePool(testPool.address, {from: accounts[0], gas: "1000000"})
+
+            await romeTok.mint(1000000)
+            await romeTok.mint(1000000, {from: accounts[1], gas: "1000000"})
+            await romeTok.mint(1000000, {from: accounts[2], gas: "1000000"})
+            await romeTok.mint(1000000, {from: accounts[3], gas: "1000000"})
+
+            let wasApproved = await theEmpire.isPoolApproved(testPool.address)
+
+            assert.equal(true, wasApproved)
+            let j_store_it_strat = await justStoreItButHalfStrategy.new(romeTok.address, testPool.address)
+            let j_store_it_strat_new = await justStoreItStrategy.new(romeTok.address, testPool.address)
+
+            await stratControl.startTimelock(testPool.address, j_store_it_strat.address, {from: accounts[0], gas: "1000000"})
+
+            await timeMachine.advanceTimeAndBlock(1000)
+            await stratControl.deployAfterTimelock(testPool.address, {from: accounts[0], gas: "2000000"})
+
+            let cur_strat = await testPool.getCurrentStrategy()
+            assert.equal(cur_strat, j_store_it_strat.address)
+            //console.log("here0")
+            await romeTok.approve(theEmpire.address, 1000000)
+            await romeTok.approve(theEmpire.address, 1000000, {from: accounts[1], gas: "1000000"})
+            await romeTok.approve(theEmpire.address, 1000000, {from: accounts[2], gas: "1000000"})
+            await romeTok.approve(theEmpire.address, 1000000, {from: accounts[3], gas: "1000000"})
+            dprint("here.5")
+            //console.log(testPool.address)
+            await theEmpire.depositToPool(testPool.address, 100000)
+            await theEmpire.depositToPool(testPool.address, 100000, {from: accounts[1], gas: "2000000"})
+            await theEmpire.depositToPool(testPool.address, 100000, {from: accounts[2], gas: "2000000"})
+            await theEmpire.depositToPool(testPool.address, 100000, {from: accounts[3], gas: "2000000"})
+
+
+
+            funds = await testPool.balanceOf(accounts[0])
+            dprint("u1 " + funds)
+            funds = await testPool.balanceOf(accounts[1])
+            dprint("u2 " + funds)
+            funds = await testPool.balanceOf(accounts[2])
+            dprint("u3 " + funds)
+
+            await stratControl.startTimelock(testPool.address, j_store_it_strat_new.address, {from: accounts[0], gas: "1000000"})
+            await timeMachine.advanceTimeAndBlock(1000)
+            await stratControl.deployAfterTimelock(testPool.address, {from: accounts[0], gas: "2000000"})
+
+            await testPool.moveToNewStrategy(100000)
+
+            dprint("after move")
+
+            await logAccountBalances(accounts, 4, testPool)
+
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[0], gas: "3000000"})
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"})
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[2], gas: "3000000"})
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"})
+
+            await logAccountBalances(accounts, 4, testPool, "after uniform withdraw")
+
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[0], gas: "3000000"})
+
+            await theEmpire.depositToPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"}).should.be.rejectedWith("deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
+
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[2], gas: "3000000"})
+
+            await theEmpire.depositToPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"}).should.be.rejectedWith("deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
+
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"})
+            await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"})
+
+            await logAccountBalances(accounts, 4, testPool, "after randomly assigned desposit or withdraw")
+
+            let bal = await testPool.balanceOf(accounts[0])
+            dprint("user2 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(0), '10');
+            bal = await romeTok.balanceOf(accounts[0])
+            dprint("user2 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(1000000), '10');
+
+            bal = await testPool.balanceOf(accounts[1])
+            dprint("user2 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(0), '10');
+            bal = await romeTok.balanceOf(accounts[1])
+            dprint("user2 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(1000000), '10');
+
+            bal = await testPool.balanceOf(accounts[2])
+            dprint("user3 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(0), '10');
+            bal = await romeTok.balanceOf(accounts[2])
+            dprint("user3 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(1000000), '10');
+
+            bal = await testPool.balanceOf(accounts[3])
+            dprint("user3 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(0), '10');
+            bal = await romeTok.balanceOf(accounts[3])
+            dprint("user3 " + bal)
+            bal.should.be.a.bignumber.that.closeTo(new BN(1000000), '10')
+
+        })
+
     })
 
 })
