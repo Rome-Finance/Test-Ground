@@ -27,7 +27,7 @@ chai.should() // tells chai how to behave or something
 
 const ERROR_MSG = 'VM Exception while processing transaction: revert';
 
-const debug = true;
+const debug = false;
 
 const logAccountBalances = async function(accounts, numToFetch, tokenContract, title = "account balances") {
     if (debug){
