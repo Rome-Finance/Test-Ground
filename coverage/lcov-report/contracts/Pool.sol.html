@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Pool.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Pool.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/65</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/67</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity =0.7.5;
+&nbsp;
+&nbsp;
+import "./openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import "./openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "./PoolManager.sol";
+import "./IStrategy.sol";
+&nbsp;
+&nbsp;
+contract Pool is ERC20 {
+    using SafeMath for uint256;
+&nbsp;
+    PoolManager poolMAN;
+    address StrategyControler;
+&nbsp;
+&nbsp;
+    IStrategy currentStrategy;
+    IStrategy oldStrategy;
+    IERC20 stakingToken;
+&nbsp;
+    event Test(uint256 num);
+&nbsp;
+    //modifer that requires caller to be region owner. Each region will have its own poolmanager. Change name of pool manager to region?
+<span class="fstat-no" title="function not covered" >    modifier onlyRegionOwner {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            msg.sender == poolMAN.getRegionOwner(),
+            "Only region owner can call this function."
+        );
+        _;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    modifier onlyStrategyController {</span>
+<span class="cstat-no" title="statement not covered" >        require(</span>
+            msg.sender == StrategyControler,
+            "Only strategy controller can call this function."
+        );
+        _;
+    }
+&nbsp;
+    /*
+    some sort of control mechanism to remember whether a user should withdraw from strategy itself, or from balance of this contract
+    when a strategy changes, the withdrawAll function should be called to return all funds to this pool.
+    */
+&nbsp;
+    /*
+    pools should be deployed after pool manager and StrategyControler already exist (deployed on chain so can pass address to constructor)
+    */
+&nbsp;
+&nbsp;
+    /*
+    use this to keep track of which strategy the user last invested into. Dont let them deposit into a new strategy until they have
+    withdrawn from the old strategy
+    */
+&nbsp;
+    bool locked;
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    constructor(string memory name, string memory symbol, address stakTok, address SC, address PM)</span>
+    ERC20(name, symbol) {
+<span class="cstat-no" title="statement not covered" >        stakingToken = IERC20(stakTok)</span>;
+<span class="cstat-no" title="statement not covered" >        StrategyControler = SC</span>;
+<span class="cstat-no" title="statement not covered" >        poolMAN = PoolManager(PM)</span>;
+<span class="cstat-no" title="statement not covered" >        locked = false</span>;
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function setStrategy(IStrategy newStrategy) external onlyStrategyController{</span>
+<span class="cstat-no" title="statement not covered" >        require(address(newStrategy) != 0x0000000000000000000000000000000000000000, "new strategy cannot be zero address")</span>;
+<span class="cstat-no" title="statement not covered" >        require(msg.sender == StrategyControler, "Only the StrategyControler contract can change the strategy")</span>;
+<span class="cstat-no" title="statement not covered" >        require(!locked, "Finish migrating from old to current strategy before setting a new one")</span>; //make sure strategy 2 before this new one that is about to go into effect is empty of money because it will be forgotten
+<span class="cstat-no" title="statement not covered" >        require(address(newStrategy) != address(currentStrategy), "Cannot set the same strategy, address of new strategy is same as address of old")</span>; //dont let the user set the same strategy that is already in effect
+        //set new strategy. This will change what happens when users deposit into this pool, the new strategy will be called to deposit into new strategy's logic
+<span class="cstat-no" title="statement not covered" >        oldStrategy = currentStrategy</span>;
+<span class="cstat-no" title="statement not covered" >        currentStrategy = newStrategy</span>;
+<span class="cstat-no" title="statement not covered" >        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){</span>
+<span class="cstat-no" title="statement not covered" >            locked = true</span>;
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function moveToNewStrategy(uint256 amount) external onlyRegionOwner{</span>
+&nbsp;
+        //@todo check this logic I wrote at 2 am sometime to make sure its right
+        //should move money from old strategy to new, and update the money in each with the balanceOf this contract from stakingToken
+<span class="cstat-no" title="statement not covered" >        uint256 bal1 = stakingToken.balanceOf(address(this));</span>
+&nbsp;
+        //require(false, "fails here?");
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        oldStrategy.withdraw(amount)</span>;
+&nbsp;
+        //require(false, "made it into move");
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint256 bal2 = stakingToken.balanceOf(address(this));</span>
+<span class="cstat-no" title="statement not covered" >        uint256 tokensToTransfer = bal2 - bal1;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        bal1 = stakingToken.balanceOf(address(this))</span>;
+<span class="cstat-no" title="statement not covered" >        stakingToken.transfer(address(currentStrategy), tokensToTransfer)</span>; //transfer happens outside deposit to make writing the strategy contracts easier
+<span class="cstat-no" title="statement not covered" >        currentStrategy.deposit(tokensToTransfer)</span>; //deposit actually moves the money into whereever the strategy wants it to go
+<span class="cstat-no" title="statement not covered" >        bal2 = stakingToken.balanceOf(address(this))</span>;
+<span class="cstat-no" title="statement not covered" >        if(oldStrategy.totalBalance() == 0){</span>
+<span class="cstat-no" title="statement not covered" >            locked = false</span>;
+        }
+    }
+&nbsp;
+    //@todo fix dust problem with moveAll method
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function moveAllToNewStrategy() external onlyRegionOwner{</span>
+<span class="cstat-no" title="statement not covered" >        require(locked == true, "contract must be between strategies to move funds to new strategy")</span>;
+<span class="cstat-no" title="statement not covered" >        uint256 oldTotal = oldStrategy.totalBalance();</span>
+<span class="cstat-no" title="statement not covered" >        uint256 startBal = stakingToken.balanceOf(address(this));</span>
+<span class="cstat-no" title="statement not covered" >        oldStrategy.withdraw(oldTotal)</span>;
+<span class="cstat-no" title="statement not covered" >        uint256 afterBal = stakingToken.balanceOf(address(this));</span>
+<span class="cstat-no" title="statement not covered" >        uint256 tokensToTransfer = afterBal - startBal;</span>
+<span class="cstat-no" title="statement not covered" >        stakingToken.transfer(address(currentStrategy), tokensToTransfer)</span>;
+<span class="cstat-no" title="statement not covered" >        currentStrategy.deposit(tokensToTransfer)</span>;
+<span class="cstat-no" title="statement not covered" >        locked = false</span>;
+    }
+&nbsp;
+&nbsp;
+    /*
+    maybe keep running ratio of funds withdawn and put into new strategy
+    then when user tries to stake more, let them stake proportionally in both, or prevent it alltogether
+    */
+&nbsp;
+    // function withdraw in pieces. Maybe execute ahead of strategy change? Users can get their money out based on ratio withdramn, know how
+    //to withdraw proportionally?
+&nbsp;
+    /*
+    it seems that the yearn and harvest people might have the deposit and withdraw in an amount to slowly put things into new strategy
+    manually to really manage the funds more like micromanagy. Letting them get around slippage by withdrawing and depositing
+    parts of the funds slowly. Some strategies might involve going though swap pools to add liquidity in equal amounts or something,
+    which would cause significant slippage in a pool if the fund size is big enough and done all at once.
+&nbsp;
+&nbsp;
+&nbsp;
+    */
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function deposit(address user, uint256 amount) public{ //amount here is in staking token. DIFFERENT BETWEEN WITHDRAW AND STAKE</span>
+<span class="cstat-no" title="statement not covered" >        emit Test(1);</span>
+<span class="cstat-no" title="statement not covered" >        require(!locked, "deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.")</span>;
+<span class="cstat-no" title="statement not covered" >        require(msg.sender == address(poolMAN), "pool manager must deposit funds")</span>;
+<span class="cstat-no" title="statement not covered" >        require(address(currentStrategy) != 0x0000000000000000000000000000000000000000, "current address must not be zero address")</span>;
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint256 balBefore = currentStrategy.totalBalance();</span>
+<span class="cstat-no" title="statement not covered" >        emit Test(balBefore);</span>
+<span class="cstat-no" title="statement not covered" >        stakingToken.transfer(address(currentStrategy), amount)</span>;
+<span class="cstat-no" title="statement not covered" >        currentStrategy.deposit(amount)</span>;
+<span class="cstat-no" title="statement not covered" >        uint256 balAfter = currentStrategy.totalBalance();</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint256 tokensToMint;</span>
+        //make sure that tokens still get minted if totalSupply is 0
+<span class="cstat-no" title="statement not covered" >        if(totalSupply() != 0){</span>
+<span class="cstat-no" title="statement not covered" >            tokensToMint = ((balAfter - balBefore) * totalSupply() ) / balBefore</span>;
+        }
+        else{
+<span class="cstat-no" title="statement not covered" >            tokensToMint=(balAfter - balBefore)</span>;
+        }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _mint(user, tokensToMint)</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function withdraw(address user, uint256 amount) public{//amount here is in pool token. DIFFERENT BETWEEN WITHDRAW AND STAKE</span>
+        //@to done make this scale to users share of the pool
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        require(msg.sender == address(poolMAN), "withdraw can only be called through pool manager")</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        require(balanceOf(user) &gt;= amount, "user balance too low")</span>; // make sure user owns as much as they want to withdraw
+&nbsp;
+        /*
+        make this withdraw some funds from old strategy and some from new strategy depending on migration state of
+        funds by regionmanager from one strategy to another, in case someone withdraws while funds are moving
+                    ratio of funds in old to new    *   share of users stake to withdraw    *      ratio of users investment to total pool value
+        (ratio of funds in old/ total Funds in both) * ( amount / balanceOf(user) ) *    (balanceOf(user) / totalSupply())  -- how much to deposit into old. replace old with new for new in first funds ratio
+        */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint256 starting_funds = stakingToken.balanceOf(address(this));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uint256 oldToWithdraw;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){</span>
+<span class="cstat-no" title="statement not covered" >            oldToWithdraw = (oldStrategy.totalBalance() *  amount) / (totalSupply())</span>;
+            // (amount / totalSupply) * oldStrategyBalance
+        }
+<span class="cstat-no" title="statement not covered" >        uint256 newToWithdraw = (currentStrategy.totalBalance() *  amount) / (totalSupply());</span>
+        // (amount / totalSupply) * currentStrategyBalance
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if(address(oldStrategy) != 0x0000000000000000000000000000000000000000){</span>
+<span class="cstat-no" title="statement not covered" >            oldStrategy.withdraw(oldToWithdraw)</span>;
+        }
+<span class="cstat-no" title="statement not covered" >        currentStrategy.withdraw(newToWithdraw)</span>;
+<span class="cstat-no" title="statement not covered" >        uint256 finish_funds = stakingToken.balanceOf(address(this));</span>
+<span class="cstat-no" title="statement not covered" >        _burn(user, amount)</span>;
+<span class="cstat-no" title="statement not covered" >        stakingToken.transfer(user, finish_funds - starting_funds)</span>;
+&nbsp;
+&nbsp;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getToken() public view returns (IERC20){</span>
+<span class="cstat-no" title="statement not covered" >        return stakingToken;</span>
+    }
+&nbsp;
+&nbsp;
+    //view function to get address of strategy manager contract
+<span class="fstat-no" title="function not covered" >    function getStrategyController() public view returns (address){</span>
+<span class="cstat-no" title="statement not covered" >        return StrategyControler;</span>
+    }
+&nbsp;
+    //view function to get address of pool manager contract
+<span class="fstat-no" title="function not covered" >    function getPoolManager() public view returns (PoolManager){</span>
+<span class="cstat-no" title="statement not covered" >        return poolMAN;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getCurrentStrategy() public view returns (IStrategy){</span>
+<span class="cstat-no" title="statement not covered" >        return currentStrategy;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getLastStrategy() public view returns (IStrategy){</span>
+<span class="cstat-no" title="statement not covered" >        return oldStrategy;</span>
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 30 2021 21:29:40 GMT-0700 (Mountain Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/StrategyController.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> StrategyController.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/9</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity =0.7.5;
+&nbsp;
+&nbsp;
+import "./openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import "./openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "./openzeppelin-contracts/contracts/access/Ownable.sol";
+import "./PoolManager.sol";
+import "./IStrategy.sol";
+import "./Pool.sol";
+&nbsp;
+contract StrategyControler is Ownable{
+    using SafeMath for uint256;
+&nbsp;
+    address PoolManager;
+&nbsp;
+    mapping(Pool =&gt; IStrategy) nextStrategies;
+    mapping(Pool =&gt; uint256) nextStrategyUnlockTimes;
+&nbsp;
+    uint256 timeToLock;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    constructor(uint256 time) public {</span>
+<span class="cstat-no" title="statement not covered" >        timeToLock = time</span>;
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function startTimelock(address poolToChange, address nStrategy) external onlyOwner{</span>
+<span class="cstat-no" title="statement not covered" >        Pool sPool = Pool(poolToChange);</span> //cast
+<span class="cstat-no" title="statement not covered" >        IStrategy nextStrategy = IStrategy(nStrategy);</span> //cast
+<span class="cstat-no" title="statement not covered" >        nextStrategies[sPool] = nextStrategy</span>; //set the strategy that can be deployed after timelock
+<span class="cstat-no" title="statement not covered" >        nextStrategyUnlockTimes[sPool] = block.timestamp.add(timeToLock)</span>; //add 1 day of seconds onto the current time to allow unlock in 1 day
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function deployAfterTimelock(address poolToChange) external onlyOwner{</span>
+<span class="cstat-no" title="statement not covered" >        Pool sPool = Pool(poolToChange);</span> //cast
+<span class="cstat-no" title="statement not covered" >        require(nextStrategyUnlockTimes[sPool] &lt; block.timestamp, "timelock has not expired")</span>; // require that 24 hours have passed since calling start time lock
+<span class="cstat-no" title="statement not covered" >        sPool.setStrategy(nextStrategies[sPool])</span>; // call the setStrategy method of the pool, replaces strategy pool uses. Causes unstake and stake of pool to do different stuff
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function getBlockTime() public view returns (uint){</span>
+<span class="cstat-no" title="statement not covered" >        return block.timestamp;</span>
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 30 2021 21:29:40 GMT-0700 (Mountain Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

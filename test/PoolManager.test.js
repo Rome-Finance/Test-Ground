@@ -24,6 +24,7 @@ chai.use(require('chai-bn')(BN), require('chai-as-promised'))
 //chai.use(require('chai-as-promised')) //chai does assertions for asynchronous behaviour
 chai.should() // tells chai how to behave or something
 
+const truffleAssert = require('truffle-assertions');
 
 const ERROR_MSG = 'VM Exception while processing transaction: revert';
 
@@ -98,10 +99,10 @@ contract('PoolManager', (accounts) => {
         it('transfer region owner malicious 1', async () => {
             let theEmpire = await PoolManager.new(accounts[1], "the empire") //im not sure which account is consider the deployer for owner purposes when .new() is called
             //below is syntax to set account and gas. add json arg after regular args of function
-            await theEmpire.transferRegionOwner( accounts[2], {
+            await truffleAssert.reverts(theEmpire.transferRegionOwner( accounts[2], {
                 from: accounts[2],
                 gas: "1000000"
-            }).should.be.rejectedWith(ERROR_MSG);
+            }), ERROR_MSG)
             let reg_owner = await theEmpire.getRegionOwner();
             //assert.equal(reg_owner, accounts[2])
             //console.log(accounts[0])
@@ -136,10 +137,10 @@ contract('PoolManager', (accounts) => {
             let romeTok = await Rome.new()
             let stratControl = await StrategyController.new(0)
             let testPool = await Pool.new("test pool", "TPOL", romeTok.address, stratControl.address, theEmpire.address)
-            await theEmpire.approvePool(testPool.address, {
+            await truffleAssert.reverts(theEmpire.approvePool(testPool.address, {
                 from: accounts[0],
                 gas: "1000000"
-            }).should.be.rejectedWith(ERROR_MSG);
+            }),ERROR_MSG);
             let wasApproved = await theEmpire.isPoolApproved(testPool.address)
             assert.equal(false, wasApproved)
         })
@@ -1179,11 +1180,11 @@ contract('PoolManager', (accounts) => {
 
             await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[0], gas: "3000000"})
 
-            await theEmpire.depositToPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"}).should.be.rejectedWith("deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
+            await truffleAssert.reverts(theEmpire.depositToPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"}),"deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
 
             await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[2], gas: "3000000"})
 
-            await theEmpire.depositToPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"}).should.be.rejectedWith("deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
+            await truffleAssert.reverts(theEmpire.depositToPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"}), "deposits are disabled temporarily because contract is migrating strategies. Withdraws will work as normal.");
 
             await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[1], gas: "3000000"})
             await theEmpire.withdrawFromPool(testPool.address, 25000, {from: accounts[3], gas: "3000000"})

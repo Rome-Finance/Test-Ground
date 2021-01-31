@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/PoolManager.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> PoolManager.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/20</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34×</span>
+<span class="cline-any cline-yes">34×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity =0.7.5;
+&nbsp;
+&nbsp;
+import "./openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+import "./openzeppelin-contracts/contracts/access/Ownable.sol";
+import "./Pool.sol";
+&nbsp;
+contract PoolManager is Ownable{
+    using SafeMath for uint256;
+&nbsp;
+    mapping(Pool =&gt; bool) approvedPools;
+    address regionOwner;
+    string regionName;
+    event PoolApproved(address pool);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+    constructor(address regOwn, string memory regName) public {
+        regionName = regName;
+        regionOwner = regOwn;
+    }
+&nbsp;
+&nbsp;
+    /*
+    should be safe for people because nobody has to invest into new pool we launch without looking at it
+    does not give us ability to modify or fuck with existing pools in any way, just add new ones
+&nbsp;
+    only region owner can add pools
+    */
+<span class="fstat-no" title="function not covered" >    function approvePool(address newPool) external{</span>
+<span class="cstat-no" title="statement not covered" >        require(msg.sender == regionOwner)</span>;
+<span class="cstat-no" title="statement not covered" >        Pool np = Pool(newPool);</span>
+<span class="cstat-no" title="statement not covered" >        approvedPools[np] = true</span>;
+<span class="cstat-no" title="statement not covered" >        emit PoolApproved(newPool);</span>
+    }
+&nbsp;
+    /*
+    @todo think about how this works, with modular yield/vault deployment for regions
+    */
+    //function deployPool() external{
+    //    //make this take paramaters and stuff to deploy a custom pool, then add it to approved pools
+    //}
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function depositToPool(address p, uint256 amount ) external{ //p stands for pool</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        Pool pool = Pool(p);</span> //cast address to pool
+<span class="cstat-no" title="statement not covered" >        require(approvedPools[pool], "pool not approved")</span>; //make sure pool is approved in out system
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        IERC20 pToken = pool.getToken();</span> //get the contract of the pools staking token, and make it work like an erc20
+<span class="cstat-no" title="statement not covered" >        bool success = pToken.transferFrom(msg.sender, p, amount);</span> //transfer tokens from the user to the pool
+<span class="cstat-no" title="statement not covered" >        require(success, "Failed to transfer token, needs approval")</span>; //throw a fit if the transfer doesnt happen
+<span class="cstat-no" title="statement not covered" >        pool.deposit(msg.sender, amount)</span>; //have the pool deposit the tokens into the strategy
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function withdrawFromPool(address p, uint256 amount) external{</span>
+<span class="cstat-no" title="statement not covered" >        Pool pool = Pool(p);</span> //cast address to pool
+<span class="cstat-no" title="statement not covered" >        require(approvedPools[pool])</span>; //make sure pool is approved in out system
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        pool.withdraw(msg.sender, amount)</span>;
+&nbsp;
+    }
+&nbsp;
+&nbsp;
+    function getRegionOwner() public view returns(address){
+        return regionOwner;
+    }
+&nbsp;
+    function getRegionName() external view returns(string memory){
+        return regionName;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function isPoolApproved(address p) external view returns(bool){</span>
+<span class="cstat-no" title="statement not covered" >        return approvedPools[Pool(p)];</span>
+    }
+&nbsp;
+    //region owner can transfer ownership to new owner
+    //this effectively means pool manager contract is defacto thing that represents a region. Could change that later and have region contract
+    //if so change this
+    function transferRegionOwner(address newOwner) external{
+        require(msg.sender == regionOwner);
+        regionOwner = newOwner;
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 30 2021 21:29:40 GMT-0700 (Mountain Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

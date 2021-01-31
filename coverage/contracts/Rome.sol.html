@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/Rome.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> Rome.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/12</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity =0.7.5;
+&nbsp;
+&nbsp;
+import "./openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+&nbsp;
+&nbsp;
+&nbsp;
+contract Rome is ERC20 {
+    using SafeMath for uint256;
+&nbsp;
+&nbsp;
+    struct User{
+        //the last block that the user burned rome to prepare to cash out
+        uint256 lastBlock;
+        //ether a user has burned rome tokens to gain, but has not yet claimed from the contract
+        uint256 redeemedEther;
+    }
+&nbsp;
+    //stores all the info of users in order to cash out
+     mapping(address =&gt; User) users;
+&nbsp;
+    // .1 eth
+    uint256 romePrice = 100000000000000000;
+&nbsp;
+    constructor() ERC20("Rome", "ROME") public {
+&nbsp;
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function buyRome(uint256 amount) public payable{</span>
+<span class="cstat-no" title="statement not covered" >        uint256 cost = amount * romePrice;</span> //each rome token costs .1 eth
+<span class="cstat-no" title="statement not covered" >        require(msg.value == cost, "Sent ether does not match buy price for the requested token amount")</span>;
+<span class="cstat-no" title="statement not covered" >        _mint(msg.sender, amount)</span>;
+    }
+&nbsp;
+    //
+<span class="fstat-no" title="function not covered" >    function prepareUnstake(uint256 romeToBurn) public{</span>
+        // make sure the sender actually at least as much rome as they want to burn
+<span class="cstat-no" title="statement not covered" >        require(balanceOf(msg.sender) &gt;= romeToBurn)</span>;
+        //destroy the rome tokens
+<span class="cstat-no" title="statement not covered" >        _burn(msg.sender, romeToBurn)</span>;
+        //set the data in the user struct so they can take out the eth during another block after this one.
+        //this helps guard against flashloan attacks
+<span class="cstat-no" title="statement not covered" >        users[msg.sender].lastBlock = block.number</span>;
+<span class="cstat-no" title="statement not covered" >        users[msg.sender].redeemedEther += romeToBurn * romePrice</span>;
+    }
+&nbsp;
+    //must be executed at least one block later than prepareCashOut
+<span class="fstat-no" title="function not covered" >    function unstake(uint256 etherToTakeOut) public{</span>
+        //must have enough eth ready to cash out for argument passed in
+<span class="cstat-no" title="statement not covered" >        require(users[msg.sender].redeemedEther &gt;= etherToTakeOut, "trying to withdraw more eth than you have prepared to cash out")</span>;
+        //must have passed one block at least since burning rome to convert to eth
+<span class="cstat-no" title="statement not covered" >        require(users[msg.sender].lastBlock &lt; block.number, "you must wait at least 1 block before cashing out. Sorry for the inconvenience, this is to guard against flash loans")</span>;
+        //subtract the ether this user has requested to take out of the contract from their allowance to take out of the contract
+        //always subtract balance before transfering money, reentrancy attacks
+<span class="cstat-no" title="statement not covered" >        users[msg.sender].redeemedEther -= etherToTakeOut</span>;
+        //send em their eth!
+<span class="cstat-no" title="statement not covered" >        msg.sender.transfer(etherToTakeOut)</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function mint(uint256 amount) public{</span>
+<span class="cstat-no" title="statement not covered" >        _mint(msg.sender, amount)</span>;
+    }
+&nbsp;
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 30 2021 21:29:40 GMT-0700 (Mountain Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
